@@ -1455,7 +1455,7 @@ select nome from cliente limit 15;
    
 select nome, email from cliente limit 15;
 
-select nome, preco, estoque from produtos limit 15;
+select nome, preco, estoque from produto limit 15;
 
 select data_pedido, valor from pedido limit 15;
 
@@ -1581,6 +1581,11 @@ select count(*) as Cliente_com_email from cliente where email is not null;
 
 
 
+/* =========================================================
+   SOLUÇÃO – EXERCÍCIO PRÁTICO 19
+   Operador BETWEEN
+   ========================================================= */
+
 -- 1. Listem produtos com preço entre R$ 400,00 e R$ 600,00. 
 select * from produto where preco between 400.00 and 600.00;
 
@@ -1591,4 +1596,118 @@ select * from produto where estoque between 10 and 20;
 select * from pedido where valor between 2000.00 and 3000.00;
 
 -- 4. Listem clientes cadastrados entre julho e dezembro de 2025.  
-select * from clientes where data_cadastro between '' and 3000.00;
+select * from cliente where data_cadastro between '2025-07-01' and '2025-12-31';
+
+
+
+/* =========================================================
+   SOLUÇÃO – EXERCÍCIO PRÁTICO 20
+   Operador IN 
+   ========================================================= */
+   
+-- 1. Listem produtos das categorias de identificadores 2, 4 e 6. 
+select * from produto where id_categoria in (2, 4, 6);
+
+-- 2. Listem produtos das categorias de identificadores 9, 10 e 11.  
+select * from produto where id_categoria in (9, 10, 11);
+
+-- 3. Listem pedidos com descontos de 5%, 15% ou 20%. 
+select * from pedido where desconto in (5, 15, 20);
+
+-- 4. Listem clientes cujos identificadores sejam 5, 10, 15, 20 e 25. 
+select * from cliente where id_cliente in (5, 10, 15, 20, 25);
+
+
+
+/* =========================================================
+   SOLUÇÃO – EXERCÍCIO PRÁTICO 21
+   Eliminando Duplicidades
+   ========================================================= */
+   
+-- 1. Listem todos os descontos existentes sem repetição. 
+select distinct desconto from pedido;
+
+-- 2. Listem os diferentes status existentes no cadastro de clientes. 
+select distinct ativo from cliente;
+
+-- 3. Listem os anos em que ocorreram pedidos, sem repetição. 
+select distinct date_format(data_pedido, '%Y') as ano from pedido order by ano;
+
+-- 4. Listem os identificadores das categorias utilizadas pelos produtos, sem repetição.  
+select distinct id_categoria from produto;
+
+
+
+/* =========================================================
+   SOLUÇÃO – EXERCÍCIO PRÁTICO 22
+   Ordenando Resultados 
+   ========================================================= */
+   
+-- 1. Listem os 20 primeiros clientes em ordem alfabética. 
+select * from cliente order by nome limit 20;
+
+-- 2. Listem os 15 produtos de maior preço.  
+select * from produto order by preco desc limit 15;
+
+-- 3. Listem os 20 pedidos mais recentes.  
+select * from pedido order by data_pedido desc limit 20;
+
+-- 4. Listem 20 produtos ordenados por categoria e, dentro de cada categoria, pelo nome.  
+select * from produto order by id_categoria, nome limit 20;
+
+
+
+/* =========================================================
+   SOLUÇÃO – EXERCÍCIO PRÁTICO 23
+   Limitando Resultados 
+   ========================================================= */
+
+-- 1. Exibam os cinco primeiros clientes cadastrados.
+select * from cliente order by data_cadastro limit 5;
+
+-- 2. Exibam os dez produtos mais caros. 
+select * from produto order by preco desc limit 10;
+
+-- 3. Exibam os cinco produtos com menor estoque. 
+select * from produto order by estoque limit 5;
+
+-- 4. Exibam os dez pedidos de maior valor.  
+select * from pedido order by valor desc limit 10;
+
+
+
+/* =========================================================
+   SOLUÇÃO – EXERCÍCIO PRÁTICO 24
+   Paginação
+   ========================================================= */
+
+-- 1. Exibam a primeira página de produtos. 
+select * from produto order by id_produto limit 10 offset 0;
+
+-- 2. Exibam a segunda página de produtos.  
+select * from produto order by id_produto limit 10 offset 10;
+
+-- 3. Exibam a terceira página de produtos. 
+select * from produto order by id_produto limit 10 offset 20;
+
+-- 4. Exibam a quinta página de produtos.  
+select * from produto order by id_produto limit 10 offset 40;
+
+
+
+/* =========================================================
+   SOLUÇÃO – EXERCÍCIO PRÁTICO 25
+   Combinando Operadores 
+   ========================================================= */
+
+-- 1. Listem clientes ativos cujo nome comece com M, exibindo no máximo 15 registros. 
+select * from cliente where nome like 'M%' limit 15;
+
+-- 2. Listem produtos entre R$ 200,00 e R$ 800,00 com estoque superior a 30 unidades. 
+select * from produto where preco between 200.00 and 800.00 and estoque > 30;
+
+-- 3. Listem os 20 maiores pedidos acima de R$ 1.000,00 com descontos de 10% ou 20%. 
+select * from pedido where valor > 1000.00 and desconto in (10, 20) order by valor desc;
+
+-- 4. Listem clientes do Gmail cadastrados durante o ano de 2025. 
+select * from cliente where email like '%gmail.com' and data_cadastro between '2025-01-01' and '2025-12-31'; 
