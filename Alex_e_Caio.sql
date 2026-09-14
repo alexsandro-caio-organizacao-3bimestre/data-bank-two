@@ -1710,4 +1710,99 @@ select * from produto where preco between 200.00 and 800.00 and estoque > 30;
 select * from pedido where valor > 1000.00 and desconto in (10, 20) order by valor desc;
 
 -- 4. Listem clientes do Gmail cadastrados durante o ano de 2025. 
-select * from cliente where email like '%gmail.com' and data_cadastro between '2025-01-01' and '2025-12-31'; 
+select * from cliente where email like '%gmail.com' and data_cadastro between '2025-01-01' and '2025-12-31' order by nome asc; 
+
+
+
+/* =========================================================
+   SOLUÇÃO – EXERCÍCIO PRÁTICO 26
+   Relatórios Comerciais
+   ========================================================= */
+   
+-- 1. Exibam os dez produtos mais caros.  
+select * from produto order by preco desc limit 10;
+
+-- 2. Exibam os dez produtos com menor estoque. 
+select * from produto order by estoque asc limit 10;
+
+-- 3. Exibam os 15 clientes cadastrados mais recentemente.  
+select * from cliente order by data_cadastro asc limit 15;
+
+-- 4. Exibam os 20 pedidos de maior valor.  
+select * from pedido order by valor desc limit 20;
+
+-- 5. Exibam os dez produtos mais baratos que ainda possuam estoque. 
+select * from produto where estoque > 0 order by preco asc limit 10; 
+
+
+
+/* =========================================================
+   SOLUÇÃO – EXERCÍCIO PRÁTICO 27
+   Auditoria de Cadastros 
+   ========================================================= */
+
+-- 1. Localizem todos os clientes sem e-mail.  
+select * from cliente where email is null order by nome asc;
+
+-- 2. Localizem os produtos com estoque menor ou igual a 10 unidades.  
+select * from produto where estoque <= 10 order by estoque asc;
+
+-- 3. Exibam os 20 pedidos sem desconto de maior valor.  
+select * from pedido where desconto = 0 order by valor desc limit 20;
+
+-- 4. Localizem os produtos com preço superior a R$ 3.000,00.  
+select * from produto where preco > 3000 order by preco desc;
+
+-- 5. Exibam os 15 clientes inativos cadastrados mais recentemente. 
+select * from cliente where ativo = 0 order by data_cadastro asc;
+
+
+
+/* =========================================================
+   SOLUÇÃO – EXERCÍCIO PRÁTICO 28
+   Consultas para o Marketing
+   ========================================================= */
+
+-- 1. Exibam os 20 primeiros clientes do Gmail em ordem alfabética.  
+select id_cliente, nome, email from cliente where email like '%@gmail.com' order by nome asc limit 20;
+
+-- 2. Exibam os 20 primeiros clientes do Outlook em ordem alfabética.  
+select id_cliente, nome, email from clientye where email like '%@outlook.com' order by nome asc limit 20;
+
+-- 3. Localizem clientes cujo nome comece com S.
+select id_cliente, nome, email from cliente where nome like 'S%' order by nome asc;
+
+-- 4. Exibam os 20 clientes cadastrados mais recentemente em 2026.  
+select id_cliente, nome, email, data_cadastro from cliente where data_cadastro like '2026%' order by data_cadastro desc limit 20;
+
+-- 5. Localizem clientes ativos cujo nome comece com A ou B
+select id_cliente, nome, email, ativo from cliente where (nome like "A%" or nome like "B%") and ativo = 1 order by nome asc;
+
+
+
+/* =========================================================
+   SOLUÇÃO – EXERCÍCIO PRÁTICO 29
+   Relatórios Gerenciais 
+   ========================================================= */
+
+-- 1. Exibam os 20 produtos de menor preço. 
+select id_produto, nome, preco, estoque from produto order by preco asc limit 20;
+ 
+-- 2. Exibam os 20 produtos com maior estoque.  
+select id_produto, nome, preco, estoque from produto order by estoque desc limit 20;
+
+-- 3. Exibam os 20 pedidos de maior valor.  
+select id_pedido, id_cliente, data_pedido, valor, desconto from pedido order by valor desc limit 20;
+
+-- 4. Exibam os 20 clientes em ordem alfabética.  
+select * from cliente order by nome asc limit 20;
+
+-- 5. Exibam os 15 pedidos mais recentes. 
+select * from pedido order by data_pedido asc limit 15;
+ 
+ 
+SELECT c.id_cliente, c.nome, p.id_pedido, p.valor, pi.id_pedido, id_produto
+FROM pedido p
+inner JOIN  cliente c
+ join pedido_item pi
+ON p.id_cliente = c.id_cliente and p.id_pedido = pi.id_pedido; 
