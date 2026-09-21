@@ -1,3 +1,16 @@
+/*
+ _____________       __          __      __      __                _________            _____________           _  
+|   __________|     |  \        |  |    |  |    |  |              |   ___    \         |   _______   |         | |                  
+|  |                |    \      |  |    |  |    |  |              |  |    \   \        |  |       |  |         | |                 
+|  |_______         |  |\  \    |  |    |  |    |  |              |  |     \   \       |  |       |  |         | |               
+|   _______|        |  |  \  \  |  |    |  |    |  |              |  |      |   |      |  |       |  |         | |               
+|  |                |  |    \  \|  |    |  |    |  |              |  |      |   |      |  |       |  |         | |           
+|  |                |  |     \     |    |  |    |  |              |  |     /   /       |  |       |  |         |_|               
+|  |__________      |  |       \   |    |  |    |  |_________     |  |____/   /        |  |_______|  |          _            
+|_____________|     |__|        \__|    |__|    |____________|    |_________/          |_____________|         |_|                   
+*/
+
+
 /* =========================================================
    BANCO DE DADOS II – MySQL 8.x
    SISTEMA EMPRESA+
@@ -1767,7 +1780,7 @@ select * from cliente where ativo = 0 order by data_cadastro asc;
 select id_cliente, nome, email from cliente where email like '%@gmail.com' order by nome asc limit 20;
 
 -- 2. Exibam os 20 primeiros clientes do Outlook em ordem alfabética.  
-select id_cliente, nome, email from clientye where email like '%@outlook.com' order by nome asc limit 20;
+select id_cliente, nome, email from cliente where email like '%@outlook.com' order by nome asc limit 20;
 
 -- 3. Localizem clientes cujo nome comece com S.
 select id_cliente, nome, email from cliente where nome like 'S%' order by nome asc;
@@ -1799,10 +1812,22 @@ select * from cliente order by nome asc limit 20;
 
 -- 5. Exibam os 15 pedidos mais recentes. 
 select * from pedido order by data_pedido asc limit 15;
- 
- 
+
+
 SELECT c.id_cliente, c.nome, p.id_pedido, p.valor, pi.id_pedido, id_produto
 FROM pedido p
 inner JOIN  cliente c
  join pedido_item pi
 ON p.id_cliente = c.id_cliente and p.id_pedido = pi.id_pedido; 
+
+/*
+ _____________       __          __      __      __                _________            _____________           _  
+|   __________|     |  \        |  |    |  |    |  |              |   ___    \         |   _______   |         | |                  
+|  |                |    \      |  |    |  |    |  |              |  |    \   \        |  |       |  |         | |                 
+|  |_______         |  |\  \    |  |    |  |    |  |              |  |     \   \       |  |       |  |         | |               
+|   _______|        |  |  \  \  |  |    |  |    |  |              |  |      |   |      |  |       |  |         | |               
+|  |                |  |    \  \|  |    |  |    |  |              |  |      |   |      |  |       |  |         | |           
+|  |                |  |     \     |    |  |    |  |              |  |     /   /       |  |       |  |         |_|               
+|  |__________      |  |       \   |    |  |    |  |_________     |  |____/   /        |  |_______|  |          _            
+|_____________|     |__|        \__|    |__|    |____________|    |_________/          |_____________|         |_|                   
+*/
